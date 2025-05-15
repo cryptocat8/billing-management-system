@@ -1,37 +1,27 @@
--- Insert data into customer table
-INSERT INTO customer (name, phone, address, type) VALUES 
-('Ravi Kumar', '9876543210', '123 MG Road, Bengaluru, Karnataka', 'residential'),
-('Anita Sharma', '8765432109', '45 Residency Road, Bengaluru, Karnataka', 'commercial'),
-('Suresh Reddy', '7654321098', '67 Brigade Road, Bengaluru, Karnataka', 'industrial'),
-('Priya Menon', '6543210987', '12 Koramangala, Bengaluru, Karnataka', 'residential'),
-('Vikram Joshi', '5432109876', '89 Indiranagar, Bengaluru, Karnataka', 'commercial');
+-- Sample customers
+INSERT INTO customers (name, phone, address) VALUES
+('Ravi Kumar', '9876543210', '123 MG Road, Bengaluru, Karnataka'),
+('Anita Sharma', '8765432109', '45 Residency Road, Bengaluru, Karnataka'),
+('Suresh Reddy', '7654321098', '67 Brigade Road, Bengaluru, Karnataka'),
+('Priya Menon', '6543210987', '12 Koramangala, Bengaluru, Karnataka'),
+('Vikram Joshi', '5432109876', '89 Indiranagar, Bengaluru, Karnataka');
 
--- Insert data into accounts table
-INSERT INTO accounts (customer_id, status, last_payment_date) VALUES 
-(1, 'active', '2024-06-15'),
-(2, 'active', '2024-06-10'),
-(3, 'inactive', '2024-05-05'),
-(4, 'active', '2024-06-20'),
-(5, 'inactive', '2024-04-25');
+-- Sample products
+INSERT INTO products (name, price, stock) VALUES
+('Rice 1kg', 60.00, 100),
+('Wheat Flour 1kg', 45.00, 80),
+('Sugar 1kg', 50.00, 60),
+('Milk 1L', 55.00, 40),
+('Eggs 12pcs', 70.00, 30);
 
--- Insert data into tariffs table
-INSERT INTO tariffs (type, rate) VALUES 
-('residential', 5.00),
-('commercial', 8.50),
-('industrial', 10.75);
+-- Sample bills
+INSERT INTO bills (customer_id, date, total) VALUES
+(1, '2025-05-10', 250.00),
+(2, '2025-05-11', 180.00);
 
--- Insert data into usage table
-INSERT INTO `usage` (customer_id, units_used) VALUES 
-(1, 150),
-(2, 300),
-(3, 500),
-(4, 200),
-(5, 350);
-
--- Insert data into billing table
-INSERT INTO billing (customer_id, amount, due_date) VALUES 
-(1, 750.00, '2024-07-25'),
-(2, 2550.00, '2024-07-25'),
-(3, 5375.00, '2024-07-25'),
-(4, 1000.00, '2024-07-25'),
-(5, 2975.00, '2024-07-25');
+-- Sample bill items
+INSERT INTO bill_items (bill_id, product_id, quantity, price) VALUES
+(1, 1, 2, 60.00),
+(1, 3, 1, 50.00),
+(2, 2, 2, 45.00),
+(2, 4, 1, 55.00);
