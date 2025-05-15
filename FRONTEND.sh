@@ -261,8 +261,19 @@ show_bill_details() {
         whiptail --msgbox "No such bill." 10 60
         return
     fi
-    BILL_ITEMS=$(mysql -u $DB_USER -p$DB_PASS -D $DB_NAME -e "SELECT p.name, bi.quantity, bi.price FROM bill_items bi JOIN products p ON bi.product_id = p.id WHERE bi.bill_id = $BILL_ID;")
-    whiptail --title "Bill Details" --msgbox "Bill Info:\n$BILL_INFO\n\nItems:\n$BILL_ITEMS" 20 100
+    # Format bill info
+    BILL_INFO_FORMATTED=$(echo "$BILL_INFO" | awk -F'\t' '{printf "Bill ID: %s\nCustomer: %s\nDate: %s\nTotal: %s\n", $1, $2, $3, $4}')
+    # Get and format bill items
+    BILL_ITEMS=$(mysql -u $DB_USER -p$DB_PASS -D $DB_NAME -e "SELECT p.name, bi.quantity, bi.price FROM bill_items bi JOIN products p ON bi.product_id = p.id WHERE bi.bill_id = $BILL_ID;" -s -N)
+    if [ -z "$BILL_ITEMS" ]; then
+        BILL_ITEMS_FORMATTED="No items found for this bill."
+    else
+        BILL_ITEMS_FORMATTED=$'Product\tQuantity\tPrice\n'
+        while IFS=$'\t' read -r NAME QTY PRICE; do
+            BILL_ITEMS_FORMATTED+=$(printf "%-20s %-10s %-10s\n" "$NAME" "$QTY" "$PRICE")
+        done <<< "$BILL_ITEMS"
+    fi
+    whiptail --title "Bill Details" --msgbox "$BILL_INFO_FORMATTED\n\nItems:\n$BILL_ITEMS_FORMATTED" 20 100
 }
 
 # Main menu loop
