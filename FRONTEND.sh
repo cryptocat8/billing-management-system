@@ -2,8 +2,21 @@
 
 # Database credentials
 DB_USER="root"
-DB_PASS="P@ssw0rd"
+DB_PASS="aryan2005"
 DB_NAME="dbms"
+
+clear
+echo " ________              __________          __                 "
+echo " \______ \   _______  _\______   \___.__._/  |_  ____   ______"
+echo "  |    |  \_/ __ \  \/ /|    |  _<   |  |\   __\/ __ \ /  ___/"
+echo "  |    \`   \  ___/\   / |    |   \\\___  | |  | \  ___/ \___ \ "
+echo " /_______  /\___  >\_/  |______  // ____| |__|  \___  >____  >"
+echo "         \/     \/             \/ \/                \/     \/ "
+sleep 2
+
+
+# Welcome Banner and Dialog
+whiptail --title "Welcome" --msgbox "Welcome to the Billing Management System\n\nDeveloped by Team: DevBytes" 12 60
 
 # Function to execute a custom SQL query
 execute_query() {
@@ -160,7 +173,7 @@ pay_bill() {
 
 # Bash script for interactive menu
 while true; do
-    CHOICE=$(whiptail --title "Electricity Bill Management System" --menu "Choose an option" 20 60 10 \
+    CHOICE=$(whiptail --title "Billing Management System" --menu "Choose an option" 20 60 10 \
     "1" "Add Customer" \
     "2" "Delete Customer" \
     "3" "Show Customers Details" \
