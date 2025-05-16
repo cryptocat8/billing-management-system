@@ -18,6 +18,13 @@ sleep 2
 
 whiptail --title "Welcome" --msgbox "Welcome to the General Billing Management System\n\nDeveloped by Team: DevBytes" 12 60
 
+LOG_FILE="/tmp/billing-system.log"
+
+log_action() {
+    # Usage: log_action "Message"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') : $1" >> "$LOG_FILE"
+}
+
 # Function to execute a custom SQL query
 execute_query() {
     QUERY=$(whiptail --inputbox "Enter your SQL query" 10 60 3>&1 1>&2 2>&3)
@@ -36,6 +43,7 @@ add_customer() {
             whiptail --msgbox "Failed to insert customer. Check /tmp/mysql_error.log for details." 10 60
             return
         fi
+        log_action "Added customer: $NAME, $PHONE, $ADDRESS"
         whiptail --msgbox "Customer added successfully!" 10 60
     else
         whiptail --msgbox "Please fill in all fields." 10 60
@@ -73,6 +81,7 @@ add_product() {
             whiptail --msgbox "Failed to insert product. Check /tmp/mysql_error.log for details." 10 60
             return
         fi
+        log_action "Added product: $NAME, $PRICE, $STOCK"
         whiptail --msgbox "Product added successfully!" 10 60
     else
         whiptail --msgbox "Please fill in all fields." 10 60
